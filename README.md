@@ -1,4 +1,4 @@
-# vue3-form
+# Vue3-Form: A Form Handling DEMO in Vue3 and Vuex 4
 
 ## Project setup
 ```
