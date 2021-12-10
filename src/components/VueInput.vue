@@ -17,7 +17,10 @@
               <span class="icon is-left has-text-info">
                 <em class="fas fa-user"></em>
               </span>
-              <span :class="validateUserName">
+              <span v-if="isValidUserName" class="icon is-right has-text-success">
+                <em class="fas fa-check"></em>
+              </span>
+              <span v-if="!isValidUserName" class="icon is-right has-text-grey-lighter">
                 <em class="fas fa-check"></em>
               </span>
               <span class="has-text-danger">{{ fieldsErrors.userName }}</span>
@@ -35,7 +38,10 @@
               <span class="icon is-left has-text-primary">
                 <em class="fas fa-envelope"></em>
               </span>
-              <span class="icon is-right has-text-grey-lighter">
+              <span v-if="isValidEmail" class="icon is-right has-text-success">
+                <em class="fas fa-check"></em>
+              </span>
+              <span v-if="!isValidEmail" class="icon is-right has-text-grey-lighter">
                 <em class="fas fa-check"></em>
               </span>
               <span class="has-text-danger">{{ fieldsErrors.email }}</span>
@@ -53,32 +59,33 @@
               <span class="icon is-left has-text-primary">
                 <em class="fas fa-key"></em>
               </span>
-              <span class="icon is-right has-text-grey-lighter">
+              <span v-if="isValidPassword" class="icon is-right has-text-success">
+                <em class="fas fa-check"></em>
+              </span>
+              <span v-if="!isValidPassword" class="icon is-right has-text-grey-lighter">
                 <em class="fas fa-check"></em>
               </span>
               <span class="has-text-danger">{{ fieldsErrors.password }}</span>
             </div>
           </div>
           <!--  Priority/Urgency Field -->
-          <div id="priority" class="field my-2 mx-6">
+          <div id="priority" class="field my-2 ml-6">
             <div class="control has-icons-left">
               <div class="select is-info">
-                <select
-                  class="has-text-grey has-background-white"
-                  v-model="fields.priority"
-                >
+                <select class="has-text-grey has-background-white"
+                        v-model="fields.priority">
                   <option value="" disabled>Select Priority</option>
-                  <option value="nonessential">Nonessential</option>
-                  <option value="moderate">Moderate</option>
-                  <option value="urgent">Urgent</option>
+                  <option value="Nonessential">Nonessential</option>
+                  <option value="Moderate">Moderate</option>
+                  <option value="Urgent">Urgent</option>
                 </select>
               </div>
               <span class="icon is-left has-text-info">
                 <em class="fas fa-exclamation-triangle"></em>
               </span>
-              <div class="has-text-danger" v-if="isNotUrgent">
-                Must be moderate to be urgent
-              </div>
+              <span class="has-text-danger" v-if="isNotUrgent">
+                Must be moderate or urgent
+              </span>
               <div class="has-text-danger">{{ fieldsErrors.priority }}</div>
             </div>
           </div>
@@ -106,7 +113,7 @@
             id="buttons"
             class="field is-grouped is-justify-content-flex-end mt-2 mx-6">
             <div class="control">
-              <button class="button is-link">
+              <button class="button is-link" :disabled="disabled">
                 Submit
               </button>
             </div>
@@ -155,20 +162,28 @@ export default {
     };
   },
   computed: {
-    validateUserName() {
-      if (this.fields.userName !== "") {
-        if (this.isValidUserName(this.fields.userName)) {
-          return "icon is-right has-text-success";
-        } else {
-          return "icon is-right has-text-grey-lighter";
-        }
-      } else {
-        return "icon is-right has-text-grey-lighter";
-      }
+    isValidUserName() {
+      const re = /^[A-Za-z0-9_-]{3,20}$/;
+      return re.test(this.fields.userName);
+    },
+    isValidEmail() {
+      const re = /\S+@\S+\.\S+/;
+      return re.test(this.fields.email);
+      },
+    isValidPassword() {
+      const re = /(?=(.*\d))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/;
+      return re.test(this.fields.password);
     },
     isNotUrgent() {
-      return this.fields.priority === "nonessential";
+      return (this.fields.priority === "Nonessential" || this.fields.priority === undefined);
     },
+    disabled() {
+      if (!this.isNotUrgent && this.isValidUserName && this.isValidEmail && this.isValidPassword) {
+        return 0;
+      } else {
+        return 1;
+      }
+    }
   },
   methods: {
     resetFields() {
@@ -194,26 +209,16 @@ export default {
       if (!fields.termsAndConditions) {
         errors.termsAndConditions = "The Terms and Conditions need be approved";
       }
-      if (fields.email && !this.isValidEmail(fields.email)) {
+      if (fields.email && !this.isValidEmail()) {
         errors.email = "Invalid Email";
       }
-      if (fields.password && !this.isValidPassword(fields.password)) {
+      if (fields.password && !this.isValidPassword()) {
         errors.password = "Not Valid Password";
       }
       return errors;
     },
-    isValidEmail(email) {
-      const re = /\S+@\S+\.\S+/;
-      return re.test(email);
-    },
-    isValidPassword(password) {
-      const re = /(?=(.*\d))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/;
-      return re.test(password);
-    },
-    isValidUserName() {
-      const re = /^[A-Za-z0-9_-]{3,20}$/;
-      return re.test(this.userName);
-    },
+
+
   },
 };
 </script>
