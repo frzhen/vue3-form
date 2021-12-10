@@ -17,16 +17,7 @@
               <span class="icon is-left has-text-info">
                 <em class="fas fa-user"></em>
               </span>
-              <span
-                v-if="isValidUserName"
-                class="icon is-right has-text-success"
-              >
-                <em class="fas fa-check"></em>
-              </span>
-              <span
-                v-if="!isValidUserName"
-                class="icon is-right has-text-grey-lighter"
-              >
+              <span :class="validateUserName">
                 <em class="fas fa-check"></em>
               </span>
               <span class="has-text-danger">{{ fieldsErrors.userName }}</span>
@@ -113,13 +104,9 @@
           <!--  Buttons Field -->
           <div
             id="buttons"
-            class="field is-grouped is-justify-content-flex-end mt-2 mx-6"
-          >
+            class="field is-grouped is-justify-content-flex-end mt-2 mx-6">
             <div class="control">
-              <button
-                :disabled="isNotUrgent || !isValidUserName"
-                class="button is-link"
-              >
+              <button class="button is-link">
                 Submit
               </button>
             </div>
@@ -168,9 +155,16 @@ export default {
     };
   },
   computed: {
-    isValidUserName() {
-      let re = /^[A-Za-z0-9_-]{3,20}$/;
-      return re.text(this.userName);
+    validateUserName() {
+      if (this.fields.userName !== "") {
+        if (this.isValidUserName(this.fields.userName)) {
+          return "icon is-right has-text-success";
+        } else {
+          return "icon is-right has-text-grey-lighter";
+        }
+      } else {
+        return "icon is-right has-text-grey-lighter";
+      }
     },
     isNotUrgent() {
       return this.fields.priority === "nonessential";
@@ -213,9 +207,12 @@ export default {
       return re.test(email);
     },
     isValidPassword(password) {
-      let re;
-      re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\d)(?=.*?[#?!@$%^&*-]).{8,}$/;
+      const re = /(?=(.*\d))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/;
       return re.test(password);
+    },
+    isValidUserName() {
+      const re = /^[A-Za-z0-9_-]{3,20}$/;
+      return re.test(this.userName);
     },
   },
 };
