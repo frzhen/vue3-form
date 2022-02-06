@@ -33,7 +33,9 @@
     <div class="block pb-6">
       <p class="has-text-info">
         <span class="title is-4 has-text-primary">Your Favorite Fullstack clothing are:</span>
-        <span v-for="item in cloth" class="has-text-info mx-2">
+        <span v-for="item in cloth"
+              :key="item"
+              class="has-text-info mx-2">
         {{ item }}
       </span>
       </p>

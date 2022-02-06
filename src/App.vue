@@ -9,7 +9,7 @@
 <script>
 import VueButton from "@/components/VueButton.vue";
 import VueInput from "@/components/VueInput.vue";
-import SkillField from "@/components/SkillField";
+import SkillField from "@/components/SkillField.vue";
 
 export default {
   name: "App",
