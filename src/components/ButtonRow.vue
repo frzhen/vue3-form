@@ -1,51 +1,54 @@
 <template>
-  <div class="block">
-    <button
-      class="button is-primary mx-2"
-      @click="onButtonClick"
-      name="button-hoodie"
-      value="fullstack-hoodie"
-    >
-      Hoodie
-    </button>
-    <button
-      class="button is-primary mx-2"
-      @click="onButtonClick"
-      name="button-tee"
-      value="fullstack-tee"
-    >
-      Tee
-    </button>
-    <button
-      class="button is-primary mx-2"
-      @click="onButtonClick"
-      name="button-fitted-cap"
-      value="fullstack-fitted-cap"
-    >
-      Fitted Cap
-    </button>
-    <button
-      class="button is-primary mx-2"
-      @click="onButtonClick"
-      name="button-jacket"
-      value="fullstack-jacket"
-    >
-      Jacket
-    </button>
+  <div>
+    <div class="block">
+      <input
+          class="is-primary mx-2"
+          value="Hoodie"
+          v-model="cloth"
+          type="checkbox"
+      >
+      <label class="has-text-info">Hoodie</label>
+      <input
+          class="is-primary mx-2"
+          value="Tee"
+          v-model="cloth"
+          type="checkbox"
+      >
+      <label class="has-text-info">Tee</label>
+      <input
+          class="is-primary mx-2"
+          value="Fitted Cap"
+          v-model="cloth"
+          type="checkbox"
+      >
+      <label class="has-text-info">Fitted Cap</label>
+      <input
+          class="is-primary mx-2"
+          value="Jacket"
+          v-model="cloth"
+          type="checkbox"
+      >
+      <label class="has-text-info">Jacket</label>
+    </div>
+    <div class="block pb-6">
+      <p class="has-text-info">
+        <span class="title is-4 has-text-primary">Your Favorite Fullstack clothing are:</span>
+        <span v-for="item in cloth" class="has-text-info mx-2">
+        {{ item }}
+      </span>
+      </p>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "ButtonRow",
-  methods: {
-    onButtonClick(event) {
-      const buttonClicked = event.target;
-      console.log(
-        `The user clicked ${buttonClicked.name}: ${buttonClicked.value}`
-      );
-    },
-  },
+  data() {
+    return {
+      cloth: []
+    }
+  }
 };
 </script>
 

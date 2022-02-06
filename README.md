@@ -1,24 +1,22 @@
-# Vue3-Form: A Form Handling DEMO in Vue3 and Vuex 4
+# Vue3-Form: A Form Handling DEMO in Vue3 and vite
 
 ## Project setup
 ```
-pnpm install
+npm install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-pnpm run serve
+npm run dev or vite
 ```
 
 ### Compiles and minifies for production
 ```
-pnpm run build
+npm run build
 ```
 
 ### Lints and fixes files
 ```
-pnpm run lint
+npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+ [Migration from Vue-cli to vite](https://github.com/frzhen/reaction-time-vue-vite/blob/main/README.md)

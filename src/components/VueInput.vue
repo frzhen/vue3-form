@@ -1,5 +1,5 @@
 <template>
-  <div class="block mx-6 px-6 py-6 my-1">
+  <div class="block mx-6 px-6 py-6 my-3">
     <div class="title is-3 input-title">Fullstack Clothing Inquiry Sheet</div>
     <div class="columns">
       <div class="column">
@@ -225,7 +225,7 @@ export default {
 
 <style lang="scss" scoped>
 .block {
-  background-color: #fdee88;
+  background-color: white;
 }
 .input-title {
   color: #6668aa;

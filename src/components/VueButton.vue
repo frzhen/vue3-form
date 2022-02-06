@@ -1,7 +1,7 @@
 <template>
-  <div class="block my-1 py-6 mx-6 px-6">
+  <div class="block pt-6 mx-6 px-6">
     <div class="container">
-      <div class="title is-3 title-text">
+      <div class="title is-4 has-text-primary">
         What is your favorite Fullstack clothing item?
       </div>
       <ButtonRow />
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ButtonRow from "./ButtonRow";
+import ButtonRow from "@/components/ButtonRow.vue";
 export default {
   name: "VueButton",
   components: {
@@ -21,9 +21,7 @@ export default {
 
 <style lang="scss" scoped>
 .block {
-  background-color: #fdee88;
-}
-.title-text {
-  color: #6668aa;
+  background-color: white;
+  border-radius: 5px;
 }
 </style>

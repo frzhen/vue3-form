@@ -1,6 +1,8 @@
 import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 import "../node_modules/bulma/css/bulma.min.css";
-import { createApp } from "vue";
-import App from "./App.vue";
+import "./assets/scss/global.scss";
 
-createApp(App).mount("#app");
+import { createApp } from 'vue'
+import App from './App.vue'
+
+createApp(App).mount('#app')
